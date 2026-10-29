@@ -510,6 +510,72 @@ ul.rows li b{color:var(--ink)}
 @media (max-width:1100px){.nas-stage{width:min(30vw,340px);height:min(48vh,400px)}}
 @media (max-width:900px){.nas-stage{display:none}}
 </style>
+<style>
+/* ============================================================
+   RESPONSIVE REFINEMENT · 手机端与窗口自适应增强（末层覆盖，优先级最高）
+   ============================================================ */
+html{-webkit-text-size-adjust:100%}
+
+/* 内容超高 → 页内滚动兜底；滚轮在页内滚动、到边缘才翻页（JS 配合） */
+.slide{overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;overscroll-behavior:contain}
+.slide::-webkit-scrollbar{width:5px}
+.slide::-webkit-scrollbar-thumb{background:rgba(155,148,137,.35);border-radius:3px}
+.wrap{margin:auto}
+
+/* 桌面矮窗口（非最大化）：先压留白再整体缩放 */
+@media (min-width:769px) and (max-height:820px){
+  .slide{padding:52px 56px 84px}
+  .wrap{gap:14px}
+}
+@media (min-width:769px) and (max-height:700px){.slide .wrap{zoom:.94}}
+@media (min-width:769px) and (max-height:600px){.slide .wrap{zoom:.87}}
+
+/* 中屏：收紧留白，四列组件降为两列 */
+@media (max-width:1100px){
+  .slide{padding:56px 40px 88px}
+  .metrics,.steps4,.rcodes{grid-template-columns:repeat(2,1fr)}
+  .fname>*{overflow-wrap:anywhere}
+}
+
+/* 手机 / 窄屏 */
+@media (max-width:768px){
+  .slide{padding:48px 16px 92px}
+  .wrap{gap:12px;zoom:.96}
+  .chrome{padding:12px 14px;font-size:10px;letter-spacing:.08em}
+  #seclbl{max-width:30vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .badge-int{padding:3px 8px;font-size:9px}
+  .nav{bottom:14px;gap:10px}
+  .nav-btn{width:38px;height:38px;font-size:15px;border-radius:9px}
+  .counter{font-size:11px;min-width:58px}
+  .kicker{font-size:10px;letter-spacing:.2em;gap:8px}
+  .kicker::before{width:20px}
+  .title{font-size:clamp(20px,5.6vw,28px)}
+  .lead{font-size:13px;line-height:1.65}
+  .card{padding:13px 14px;border-radius:11px}
+  .card h3{font-size:14px}
+  .card p{font-size:12.5px}
+  .banner{padding:11px 13px;font-size:12.5px;border-radius:10px;line-height:1.6}
+  ul.rows li{font-size:12.5px;gap:10px}
+  ul.rows li::before{margin-top:7px}
+  .tbl{font-size:11.5px}
+  .tbl th{padding:7px 8px;font-size:9.5px;letter-spacing:.06em}
+  .tbl td{padding:7px 8px}
+  .tbl td:first-child{white-space:normal}
+  .chips{gap:7px}
+  .chip{font-size:10px;padding:5px 10px}
+  .fname,.flegend{column-gap:7px;row-gap:12px}
+  .fname{font-size:clamp(15px,4.2vw,20px)}
+  .ov-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+  .g3,.g5,.metrics,.steps,.steps4,.kv,.mod-grid,.dcards{grid-template-columns:1fr}
+  .slide .wrap{zoom:.93}
+}
+@media (max-width:420px){
+  .slide .wrap{zoom:.88}
+  .title{font-size:19px}
+}
+</style>
 </head>
 <body>
 
@@ -1132,6 +1198,7 @@ function render(){
     const a=i===cur;
     s.classList.toggle('active',a);
     s.classList.toggle('is-before',i<cur);
+    if(!a)s.scrollTop=0;
     if(!a)s.querySelectorAll('.num[data-to]').forEach(el=>{cancelAnimationFrame(el._r);el.textContent=(0).toFixed(+(el.dataset.dec||0));});
   });
   pfill.style.width=((cur+1)/slides.length*100)+'%';
@@ -1181,6 +1248,11 @@ let wheelLock=false;
 addEventListener('wheel',e=>{
   if(ovOpen||wheelLock)return;        // 目录打开或冷却中不响应
   if(e.target.closest&&e.target.closest('.nas-stage'))return; // 3D 模型区内滚轮→缩放，不翻页
+  const sl=slides[cur];
+  if(sl.scrollHeight>sl.clientHeight+2){          // 内容超高：先在页内滚动，到顶/底边缘才翻页
+    const atTop=sl.scrollTop<=1,atBot=sl.scrollTop+sl.clientHeight>=sl.scrollHeight-1;
+    if((e.deltaY>0&&!atBot)||(e.deltaY<0&&!atTop))return;
+  }
   e.preventDefault();
   if(Math.abs(e.deltaY)<6)return;     // 忽略极小抖动
   wheelAcc+=e.deltaY;
