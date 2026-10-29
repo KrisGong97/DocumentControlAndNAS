@@ -1,0 +1,15 @@
+/* 本地字体：完全自托管，不依赖 Google Fonts / 境外 CDN
+   Noto Sans SC 已按 index.html 实际用字子集化（可变字重 wght 100–900） */
+
+@font-face{
+  font-family:"Noto Sans SC";
+  src:url("NotoSansSC-subset.woff2") format("woff2");
+  font-weight:100 900;
+  font-style:normal;
+  font-display:swap;
+}
+
+@font-face{font-family:"IBM Plex Mono";src:url("IBMPlexMono-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url("IBMPlexMono-500.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url("IBMPlexMono-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url("IBMPlexMono-700.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
