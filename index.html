@@ -6,7 +6,7 @@
 <title>香港C2318项目 DCP经验与NAS协同办公推广方案 · 汇报演示</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600;800&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
 <style>
 /* ============ TOKENS ============ */
 :root{
@@ -291,11 +291,230 @@ ul.rows li::before{content:'';flex:none;width:7px;height:7px;margin-top:9px;bord
   *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.15s!important}
 }
 </style>
+<style>
+/* ============================================================
+   THEME: ENGINEERING BLUEPRINT × ARCHIVE PAPER
+   蓝图制图 × 工程档案纸 · 覆盖层（override layer）
+   设计方向：纸底 + 普鲁士蓝结构线 + 安全橙点睛 + 直角硬边
+   ============================================================ */
+:root{
+  --paper:#FFFFFF; --paper-hi:#F7F6F3; --paper-lo:#EFEDEA;
+  --ink:#37352F; --ink-soft:#5C5A54;
+  --bp:#37352F; --bp-mid:#2383E2; --bp-soft:#8FBCE4;
+  --ox:#D9730D; --seal:#9F6B53; --warn:#EB5757; --ok:#448361;
+
+  --bg0:#FFFFFF; --bg1:#F7F6F3;
+  --cy:#2383E2; --bl:#9065B0; --vi:#787774;
+  --gd:#CB912F; --rd:#EB5757; --gn:#448361;
+  --tx:#37352F; --mt:#5C5A54; --mt2:#9B9489;
+  --ln:#E9E7E4;
+
+  --fz:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --fs:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --fe:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --fm:"IBM Plex Mono","Noto Sans SC",monospace;
+  --ez:cubic-bezier(.2,.85,.2,1);
+}
+
+/* ---- ground: notion white ---- */
+body{background:var(--paper);color:var(--ink)}
+::selection{background:rgba(212,209,200,.5)}
+#bg{display:none}
+.glow{display:none}
+.beam{background:linear-gradient(100deg,transparent 30%,rgba(55,53,47,.02) 45%,rgba(217,115,13,.05) 50%,rgba(55,53,47,.02) 55%,transparent 70%)}
+.deck::before{display:none}
+
+/* ---- chrome ---- */
+.progress{height:3px;background:rgba(55,53,47,.08)}
+.progress-fill{background:var(--ox);box-shadow:none}
+.chrome{padding:14px 30px;border-bottom:1px solid var(--ln);font-size:10.5px;letter-spacing:.14em;color:var(--mt2)}
+.chrome .brand b{color:var(--ink);font-weight:700}
+.chrome .brand .dot{width:7px;height:7px;border-radius:50%;background:var(--ox);box-shadow:none;animation:none}
+.badge-int{border-color:transparent;color:#9F6B53;background:#F4EEEE;border-radius:6px;letter-spacing:.12em}
+#seclbl{color:var(--mt2)}
+
+/* ---- typography ---- */
+.kicker{font-size:11px;letter-spacing:.26em;color:var(--mt2);gap:10px;font-weight:600}
+.kicker::before{width:22px;height:2px;background:var(--ox);border-radius:1px;background-image:none}
+.title{font-family:var(--fs);font-size:clamp(26px,3vw,40px);font-weight:900;line-height:1.3;letter-spacing:-.01em}
+.title em,.hero-title em{
+  -webkit-text-fill-color:currentColor;-webkit-text-stroke:0;
+  background:none;-webkit-background-clip:border-box;background-clip:border-box;
+  color:var(--ink);
+  background-image:linear-gradient(rgba(240,197,52,.42),rgba(240,197,52,.42));
+  background-repeat:no-repeat;background-size:100% .36em;background-position:0 86%;
+}
+.hero-title{font-family:var(--fs);font-weight:900;letter-spacing:0}
+.hero-title em{display:block;color:var(--bp-mid);background-image:none}
+.hero-kick{color:var(--mt2);letter-spacing:.3em}
+.hero-kick b{color:var(--ox)}
+.hero-sub{color:var(--mt)}
+.lead{color:var(--mt);line-height:1.85}
+.tag{color:#9F6B53;border-color:transparent;background:#F4EEEE;border-radius:6px}
+
+/* ---- cards ---- */
+.card{
+  background:#FFF;border:1px solid var(--ln);
+  border-radius:10px;backdrop-filter:none;
+  box-shadow:0 1px 2px rgba(15,15,15,.03),0 2px 10px rgba(15,15,15,.04);
+}
+.card:hover{transform:translateY(-2px);background:#FFF;border-color:#DCD9D4;box-shadow:0 2px 6px rgba(15,15,15,.05),0 10px 28px rgba(15,15,15,.09)}
+.card h3{font-family:var(--fs);font-weight:700}
+.card p{color:var(--mt)}
+.card.gold{border-color:#E7DDD4;border-top:2px solid #9F6B53;background:#FDFBF9}
+.card.red{border-color:#F2D7D5;border-top:2px solid #EB5757;background:#FEFBFB}
+.card.cy{border-color:#D3E5F0;border-top:2px solid #2383E2;background:#FBFDFE}
+.num-badge{font-family:var(--fm);font-size:13px;font-weight:600;color:#FFF;background:var(--ink);border:1px solid var(--ink);border-radius:8px}
+.card .num-badge,.gold .num-badge{color:#FFF;background:#9F6B53;border-color:#9F6B53}
+
+/* ---- chips / banners / rows ---- */
+.chip{font-family:var(--fm);font-size:11px;letter-spacing:.02em;color:var(--mt);border:1px solid var(--ln);border-radius:6px;background:#FFF}
+.chip.cy{color:#1D77C1;border-color:#D3E5F0;background:#E7F3F8}
+.chip.rd{color:#D64545;border-color:#F2D7D5;background:#FDEBEC}
+.chip.gd{color:#9F6B53;border-color:#E7DDD4;background:#F4EEEE}
+ul.rows li::before{background:var(--ox);box-shadow:none;border-radius:2px;transform:none}
+ul.rows li b{color:var(--ink)}
+.banner{border:1px solid #E7DDD4;border-left:3px solid #9F6B53;border-radius:8px;background:#F4EEEE;color:var(--ink);font-size:14.5px;display:block}
+.banner b{color:#9F6B53}
+.banner.cy{border-color:#D3E5F0;border-left-color:#2383E2;background:#E7F3F8;color:var(--ink)}
+.banner.cy b{color:#1D77C1}
+.banner.red{border-color:#F2D7D5;border-left-color:#EB5757;background:#FDEBEC;color:var(--ink)}
+.banner.red b{color:#D64545}
+
+/* ---- table ---- */
+.tbl th{font-size:10.5px;letter-spacing:.12em;color:var(--mt2);border-bottom:1px solid #DCD9D4}
+.tbl td{color:var(--mt);border-bottom:1px solid #F1F0EE}
+.tbl td:first-child{color:var(--ink);font-weight:600}
+.tbl tr:hover td{background:#F7F6F3}
+.bdg{border-radius:6px;letter-spacing:.06em}
+.bdg.hi{background:#FDEBEC;color:#D64545}
+.bdg.mh{background:#FBF3DB;color:#A8842C}
+.bdg.md{background:#E7F3F8;color:#1D77C1}
+.bdg.lo{background:#EDF3EC;color:#448361}
+
+/* ---- metrics ---- */
+.metric{background:#FFF;border:1px solid var(--ln);border-radius:10px;box-shadow:0 1px 2px rgba(15,15,15,.03),0 2px 10px rgba(15,15,15,.04)}
+.metric::after{height:4px;border-radius:2px 2px 0 0;background:var(--ox);background-image:none}
+.metric .n{font-family:var(--fs);background:none;-webkit-background-clip:border-box;background-clip:border-box;-webkit-text-fill-color:currentColor;color:var(--bp-mid);letter-spacing:-.01em;font-weight:900}
+.metric .n small{-webkit-text-fill-color:var(--mt2);color:var(--mt2)}
+.metric .l{color:var(--mt2)}
+
+/* ---- flow ---- */
+.fnode{background:#FFF;border:1px solid var(--ln);border-radius:8px}
+.fnode.cy{border-color:#D3E5F0;box-shadow:none;background:#E7F3F8}
+.farr{color:var(--ox);font-family:var(--fm)}
+
+/* ---- cover ---- */
+.ring{border-color:rgba(55,53,47,.14)}
+.ring::before{border-color:rgba(55,53,47,.08)}
+.ring::after{border-color:rgba(217,115,13,.22)}
+.ticker{border-top:1px solid var(--ln)}
+.ticker-track span{color:var(--mt2)}
+.ticker-track span b{color:rgba(217,115,13,.8)}
+
+/* ---- divider ---- */
+.giant{font-family:var(--fs);-webkit-text-stroke:0;color:#ECEAE6;font-weight:900}
+.giant::after{background:none;-webkit-background-clip:border-box;background-clip:border-box;-webkit-text-fill-color:transparent;-webkit-text-stroke:0}
+.dv-title{font-family:var(--fs);font-weight:900;letter-spacing:-.01em}
+.dv-sub{color:var(--mt2)}
+.secmap span{color:var(--mt2);border:1px solid transparent;border-radius:6px;background:#F1F1EF}
+.secmap span.on{color:#1D77C1;border-color:#D3E5F0;background:#E7F3F8;box-shadow:none;font-weight:600}
+.mod{background:#FFF;border:1px solid var(--ln);border-radius:8px}
+.mod i{color:var(--bp-mid);font-family:var(--fm)}
+.mod.star{border-color:#E7DDD4;background:#F4EEEE}
+.mod.star i{color:#9F6B53}
+
+/* ---- naming / codes ---- */
+/* 文件名分段与下方图例共用同一套 7 列网格，保证上下逐列一一对应 */
+.fname{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));column-gap:10px;align-items:baseline;
+  font-size:clamp(15px,1.85vw,27px);margin:12px 0 2px}
+.fname .seg{text-align:center;text-shadow:none;padding:0 2px;font-weight:700}
+.fname .seg:not(:last-child)::after{content:'-';color:#D3D0CB;font-weight:400;margin-left:.06em}
+.fname .ext{display:inline;font-size:.62em;color:var(--mt2);margin-left:1px;letter-spacing:0}
+.flegend{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));column-gap:10px}
+.fcell{padding-top:8px}
+.fcell b{font-family:var(--fs)}
+.fcell span{color:var(--mt)}
+@media (max-width:900px){
+  .fname,.flegend{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:16px}
+}
+.readline b{color:var(--ink)}
+.stcode{background:#FFF;border:1px solid var(--ln);border-radius:8px}
+.stcode code{color:var(--bp-mid);font-weight:600}
+.stcode.a1{border-color:#D6E3D6;background:#EDF3EC;box-shadow:none}
+.stcode.a1 code{color:#448361}
+.rcode{border:1px solid var(--ln);border-radius:8px;background:#FFF}
+.rcode .c{font-family:var(--fe);font-weight:900}
+.rcode p{color:var(--mt)}
+
+/* ---- architecture ---- */
+.anode{border:1px solid #D3E5F0;border-radius:8px;background:#E7F3F8}
+.anode.hq{border-color:#DCD9D4;background:#F1F1EF}
+.anode.bk{border-color:#E0D5F2;background:#F1EAF8}
+.anode p{color:var(--mt)}
+.alink{background:repeating-linear-gradient(180deg,rgba(55,53,47,.25) 0 5px,transparent 5px 10px)}
+.alink::after{background:var(--ox);box-shadow:none}
+.alink .lbl{color:var(--mt)}
+.fan::before{background:linear-gradient(90deg,transparent,rgba(55,53,47,.15),transparent)}
+.fan span{background:#FFF;border:1px solid var(--ln);border-radius:6px;color:var(--mt)}
+.fan span::before{background:rgba(55,53,47,.2)}
+
+/* ---- steps ---- */
+.steps::before{background:var(--ln);background-image:none;box-shadow:none}
+.step .dot{border:2px solid #1D77C1;border-radius:50%;background:#FFF;color:#1D77C1;font-family:var(--fm);box-shadow:none}
+
+/* ---- decision cards ---- */
+.dcard{border:1px solid #E7DDD4;border-left:3px solid #9F6B53;border-radius:8px;background:#FFF}
+.dcard:hover{transform:translateY(-2px);box-shadow:0 2px 6px rgba(15,15,15,.05),0 10px 28px rgba(15,15,15,.09)}
+.dcard .dn{font-family:var(--fe);background:none;-webkit-background-clip:border-box;background-clip:border-box;-webkit-text-fill-color:currentColor;color:#E3C8B2}
+.dcard h3{font-family:var(--fs);color:var(--ink)}
+.dcard p{color:var(--mt)}
+.dcard p b{color:var(--ink)}
+
+/* ---- quote / closing ---- */
+.quote::before{color:rgba(55,53,47,.1)}
+.quote p em{color:var(--ox)}
+.thanks{font-family:var(--fs);letter-spacing:.06em;background:none;-webkit-background-clip:border-box;background-clip:border-box;-webkit-text-fill-color:currentColor;color:var(--ink)}
+
+/* ---- big number / vs / kv ---- */
+.big61{font-family:var(--fe);background:none;-webkit-background-clip:border-box;background-clip:border-box;-webkit-text-fill-color:currentColor;color:#ECEAE6;filter:none}
+.vs .side{border-radius:10px}
+.vs .side.hk{border-color:#D3E5F0;background:#E7F3F8}
+.vs .side.ml{border-color:#E7DDD4;background:#F4EEEE}
+.vs .side p{color:var(--mt)}
+.vs .x{border-radius:8px;background:#FFF;color:var(--mt2);font-family:var(--fm);border:1px solid var(--ln);box-shadow:0 1px 2px rgba(15,15,15,.04)}
+
+/* ---- nav / overview ---- */
+.nav-btn{border-radius:8px;background:#FFF;backdrop-filter:none;color:var(--ink);border:1px solid var(--ln);box-shadow:0 1px 2px rgba(15,15,15,.04)}
+.nav-btn:hover{border-color:#DCD9D4;color:var(--ink);background:#F7F6F3;box-shadow:0 2px 8px rgba(15,15,15,.08);transform:translateY(-1px)}
+.counter{color:var(--mt2)}
+.counter b{color:var(--ink)}
+.hint{color:var(--mt2)}
+.ov{background:rgba(251,250,248,.96);backdrop-filter:blur(6px)}
+.ov-box{background:#FFF;border:1px solid var(--ln);border-radius:12px;box-shadow:0 4px 12px rgba(15,15,15,.06),0 20px 60px rgba(15,15,15,.1)}
+.ov-box h3{color:var(--ink)}
+.ov-item{background:#FFF;border:1px solid var(--ln);border-radius:8px;color:var(--mt)}
+.ov-item:hover{border-color:#D3E5F0;color:var(--ink);background:#E7F3F8}
+.ov-item .ov-num{color:#1D77C1;font-family:var(--fm)}
+
+/* ---- NAS 3D stage ---- */
+.nas-stage{position:relative;flex:none;width:min(36vw,500px);height:min(55vh,480px)}
+.nas-stage canvas{position:absolute;inset:0;width:100%!important;height:100%!important;cursor:grab;touch-action:none}
+.nas-stage canvas:active{cursor:grabbing}
+.nas-shadow{position:absolute;left:50%;bottom:9%;width:62%;height:30px;transform:translateX(-50%);
+  background:radial-gradient(ellipse at center,rgba(19,26,33,.26),transparent 70%);pointer-events:none;z-index:2}
+.nas-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:10px;
+  font-family:var(--fm);font-size:11px;letter-spacing:.28em;color:var(--mt2);pointer-events:none;transition:opacity .5s;z-index:1}
+.nas-loading::before{content:'';width:14px;height:14px;border:2px solid rgba(55,53,47,.15);border-top-color:var(--ox);border-radius:50%;animation:nasspin 1s linear infinite}
+@keyframes nasspin{to{transform:rotate(360deg)}}
+.nas-hint{position:absolute;right:12px;bottom:10px;font-family:var(--fm);font-size:10px;letter-spacing:.14em;
+  color:var(--mt2);pointer-events:none;opacity:.75;z-index:2}
+@media (max-width:1100px){.nas-stage{display:none}}
+</style>
 </head>
 <body>
 
 <canvas id="bg"></canvas>
-<div class="grid-bg"></div>
 <div class="glow glow-1"></div><div class="glow glow-2"></div>
 <div class="beam" id="beam"></div>
 
@@ -315,10 +534,9 @@ ul.rows li::before{content:'';flex:none;width:7px;height:7px;margin-top:9px;bord
     <div class="hero-kick" data-rv style="--i:0">内部汇报 · 建议稿　<b>INTERNAL BRIEFING</b>　2026.10</div>
     <h1 class="hero-title" data-rv style="--i:1">文件控制计划（DCP）实施经验<em>与 NAS 协同办公推广方案</em></h1>
     <p class="hero-sub" data-rv style="--i:2">香港 C2318 项目的管理实践，与内地落地路径<br><span class="mono">DOCUMENT CONTROL PLAN × NETWORK ATTACHED STORAGE</span></p>
-    <div class="hero-meta" data-rv style="--i:3">
+    <div class="hero-meta" data-rv style="--i:3;justify-content:center">
       <span class="chip cy">汇报单位 · 安全质量环保部</span>
       <span class="chip">汇报人 · 巩 略</span>
-      <span class="chip">适用 · 公司领导 / 工程管理部 / 技术中心 / 各项目部</span>
     </div>
   </div>
   <div class="ticker"><div class="ticker-track">
@@ -352,8 +570,8 @@ ul.rows li::before{content:'';flex:none;width:7px;height:7px;margin-top:9px;bord
       <div class="card" data-rv style="--i:3" style="padding:14px 18px"><h3 style="font-size:14px;margin:0"><span class="num-badge" style="min-width:28px;height:28px;font-size:12px">02</span>DCP 规范要点</h3><p style="margin-top:6px">十个核心模块：命名规则、版次控制、审批代码</p></div>
       <div class="card" data-rv style="--i:4" style="padding:14px 18px"><h3 style="font-size:14px;margin:0"><span class="num-badge" style="min-width:28px;height:28px;font-size:12px">03</span>管理效益</h3><p style="margin-top:6px">这套东西值多少钱，不做的代价是什么</p></div>
       <div class="card" data-rv style="--i:5" style="padding:14px 18px"><h3 style="font-size:14px;margin:0"><span class="num-badge" style="min-width:28px;height:28px;font-size:12px">04</span>内地推行</h3><p style="margin-top:6px">两地差异、政策依据、关键矛盾与落地路径</p></div>
-      <div class="card" data-rv style="--i:6" style="padding:14px 18px"><h3 style="font-size:14px;margin:0"><span class="num-badge" style="min-width:28px;height:28px;font-size:12px">05</span>NAS 协同办公平台</h3><p style="margin-top:6px">定位、架构、目录、权限、备份、局限</p></div>
-      <div class="card" data-rv style="--i:7" style="padding:14px 18px"><h3 style="font-size:14px;margin:0"><span class="num-badge" style="min-width:28px;height:28px;font-size:12px">06</span>实施计划 ＋ 07 决策事项</h3><p style="margin-top:6px">试点选择、三步走、分工风险；请领导决策四件事</p></div>
+      <div class="card" data-rv style="--i:6" style="padding:14px 18px"><h3 style="font-size:14px;margin:0"><span class="num-badge" style="min-width:28px;height:28px;font-size:12px">05</span>NAS 协同办公平台</h3><p style="margin-top:6px">是什么（大白话）、三个场景、架构、权限、备份、局限</p></div>
+      <div class="card" data-rv style="--i:7" style="padding:14px 18px"><h3 style="font-size:14px;margin:0"><span class="num-badge" style="min-width:28px;height:28px;font-size:12px">06</span>实施计划 ＋ 07 决策事项</h3><p style="margin-top:6px">试点选择、三步走、落地风险；请领导决策四件事</p></div>
     </div>
     <div class="banner cy" data-rv style="--i:8">一至四部分讲"<b>香港怎么管、内地怎么落地</b>"，第五部分讲"<b>用什么工具承载</b>" —— 一套办法的两条腿，建议一并研究，不要拆开看。</div>
   </div>
@@ -464,16 +682,22 @@ ul.rows li::before{content:'';flex:none;width:7px;height:7px;margin-top:9px;bord
     </div>
     <h2 class="title" data-rv style="--i:1">文件命名规则 —— <em>位置决定含义</em>，不看内容读出全部属性</h2>
     <div class="fname" data-rv style="--i:2">
-      <span class="seg" style="--c:#3AE2FF">C2318</span><span class="dh">-</span><span class="seg" style="--c:#5B8CFF">EEB</span><span class="dh">-</span><span class="seg" style="--c:#9D6BFF">ELE</span><span class="dh">-</span><span class="seg" style="--c:#3FE0A5">DWG</span><span class="dh">-</span><span class="seg" style="--c:#F2C268">KTL-ST05</span><span class="dh">-</span><span class="seg" style="--c:#FF9F6B">0001</span><span class="dh">-</span><span class="seg" style="--c:#FF6B7A">C03</span><span class="ext">.pdf</span>
+      <span class="seg" style="--c:#2383E2">C2318</span>
+      <span class="seg" style="--c:#9065B0">EEB</span>
+      <span class="seg" style="--c:#9F6B53">ELE</span>
+      <span class="seg" style="--c:#448361">DWG</span>
+      <span class="seg" style="--c:#CB912F">KTL-ST05</span>
+      <span class="seg" style="--c:#D9730D">0001</span>
+      <span class="seg" style="--c:#C14C8E">C03<span class="ext">.pdf</span></span>
     </div>
     <div class="flegend" data-rv style="--i:3">
-      <div class="fcell" style="--c:#3AE2FF"><b>Project</b><span>项目 / 合约代码</span></div>
-      <div class="fcell" style="--c:#5B8CFF"><b>Originator</b><span>发起方（谁出的）</span></div>
-      <div class="fcell" style="--c:#9D6BFF"><b>Discipline</b><span>专业（ELE 供电）</span></div>
-      <div class="fcell" style="--c:#3FE0A5"><b>Type</b><span>类型（DWG 图纸）</span></div>
-      <div class="fcell" style="--c:#F2C268"><b>Zone</b><span>位置（观塘线 05 站）</span></div>
-      <div class="fcell" style="--c:#FF9F6B"><b>Number</b><span>流水号（不跳号）</span></div>
-      <div class="fcell" style="--c:#FF6B7A"><b>Revision</b><span>版次（施工版第 3 次）</span></div>
+      <div class="fcell" style="--c:#2383E2"><b>Project</b><span>项目 / 合约代码</span></div>
+      <div class="fcell" style="--c:#9065B0"><b>Originator</b><span>发起方（谁出的）</span></div>
+      <div class="fcell" style="--c:#9F6B53"><b>Discipline</b><span>专业（ELE 供电）</span></div>
+      <div class="fcell" style="--c:#448361"><b>Type</b><span>类型（DWG 图纸）</span></div>
+      <div class="fcell" style="--c:#CB912F"><b>Zone</b><span>位置（观塘线 05 站）</span></div>
+      <div class="fcell" style="--c:#D9730D"><b>Number</b><span>流水号（不跳号）</span></div>
+      <div class="fcell" style="--c:#C14C8E"><b>Revision</b><span>版次（施工版第 3 次）</span></div>
     </div>
     <p class="readline" data-rv style="--i:4">读法：<b>C2318 合约</b>下，中铁电气化局出的，<b>供电专业 · 图纸</b>，观塘线第 05 站，第 0001 号，施工版第 3 次。　<span class="mono" style="font-size:11px;color:var(--mt2)">源自 BS 1192 → ISO 19650</span></p>
     <div class="chips" data-rv style="--i:5">
@@ -485,6 +709,7 @@ ul.rows li::before{content:'';flex:none;width:7px;height:7px;margin-top:9px;bord
       <span class="chip rd">（真正最终）.dwg</span>
       <span class="chip rd">新建 Microsoft Word 文档.docx</span>
     </div>
+    <div class="banner cy" data-rv style="--i:7;font-size:12.5px;padding:11px 16px"><b>真实案例（MTR C2318-19E）：</b>本方案的程序文件编号 <b>C231819E-CSF-EGJ-QUM-010001E</b> —— 合约号 / 文件类型（承包商提交表）/ 发起方（联营体）/ 主题（质量管理）/ 顺序号＋版次 E，同一套字段逻辑，7 段一一对应。</div>
   </div>
 </section>
 
@@ -499,7 +724,7 @@ ul.rows li::before{content:'';flex:none;width:7px;height:7px;margin-top:9px;bord
         <div class="stcode" data-rv style="--i:3"><code>C01</code><span><b>Construction 施工版</b> · 报业主审批、用于施工</span></div>
         <div class="stcode" data-rv style="--i:4"><code>AB</code><span><b>As-Built 竣工版</b> · 竣工移交</span></div>
         <div class="stcode dim" data-rv style="--i:5"><code>W</code><span><b>Withdrawn 撤回版</b> · 须标注原因</span></div>
-        <div class="banner cy" data-rv style="--i:6" style="font-size:12.5px;padding:12px 16px">新版发布即自动作废旧版，移入 <b>99_Superseded</b> 保留 —— 不得覆盖、不得删除。</div>
+        <div class="banner cy" data-rv style="--i:6;font-size:12.5px;padding:12px 16px">新版发布即自动作废旧版，移入 <b>99_Superseded</b> 保留 —— 不得覆盖、不得删除。</div>
       </div>
       <div class="codes-col">
         <div class="stcode dim" data-rv style="--i:2"><code>S0</code><span>初始状态，未完成</span></div>
@@ -510,6 +735,7 @@ ul.rows li::before{content:'';flex:none;width:7px;height:7px;margin-top:9px;bord
       </div>
     </div>
     <div class="banner" data-rv style="--i:7">图纸本身<b>自带授权信息</b>，现场不会误用 —— 解决"给你看看"还是"照着干"靠口头确认的常见纠纷。个人认为<b>最值得移植</b>的一条。</div>
+    <div class="banner cy" data-rv style="--i:8;font-size:12.5px;padding:11px 16px"><b>版次递进规则（C2318 实践）：</b>首次提交<b>不带版次号</b>；未获批准重投则加 <b>A</b>，此后依次 B、C…；图纸设计过程中的内部版本用 <b>A1、A2、A3</b> 区分，<b>定版 A 后中间版及其修改标注一并清除</b> —— 版次既"递进"又"收敛"。</div>
   </div>
 </section>
 
@@ -614,7 +840,7 @@ ul.rows li::before{content:'';flex:none;width:7px;height:7px;margin-top:9px;bord
         <div class="card" data-rv style="--i:8"><h3>档案费用列入工程造价</h3><p>有合法费用来源，不是"额外负担"</p></div>
       </div>
     </div>
-    <div class="banner" data-rv style="--i:9" style="justify-content:center;font-size:16px">我们现在推进文件控制体系，<b>不是在"学香港"，而是在落实国家新规</b> —— 这是本次汇报最有力的一句话。</div>
+    <div class="banner" data-rv style="--i:9;text-align:center;font-size:16px">我们现在推进文件控制体系，<b>不是在"学香港"，而是在落实国家新规</b> —— 这是本次汇报最有力的一句话。</div>
   </div>
 </section>
 
@@ -635,7 +861,7 @@ ul.rows li::before{content:'';flex:none;width:7px;height:7px;margin-top:9px;bord
 <section class="slide" data-section="PART 04 · 内地推行" data-title="两地制度差异">
   <div class="wrap" style="gap:14px">
     <div class="kicker" data-rv style="--i:0">4.1 · GAP ANALYSIS</div>
-    <h2 class="title" data-rv style="--i:1">香港是"<em>过程强制</em>"，内地是"<em style="background:linear-gradient(100deg,var(--gd),#D89B3F);-webkit-background-clip:text;background-clip:text">结果验收</em>"</h2>
+    <h2 class="title" data-rv style="--i:1">香港是"<em>过程强制</em>"，内地是"<em>结果验收</em>"</h2>
     <div class="vs" data-rv style="--i:2">
       <div class="side hk"><h4>香港 · 港铁体系 —— 过程强制</h4><p>合同强制条款 · 专职 DC · 字段化命名 · Transmittal 提交单 · 统一 EDMS · 业主定期审计</p></div>
       <div class="x">VS</div>
@@ -670,7 +896,7 @@ ul.rows li::before{content:'';flex:none;width:7px;height:7px;margin-top:9px;bord
       <h3>解决方案：一次生成，日常即归档</h3>
       <p>① 文件名用<b style="color:var(--cy)">字段化编码</b>（便于检索排序）　② 文件登记册增设<b style="color:var(--cy)">"档案分类号 · 案卷号 · 件号"三列</b>，DC 登记时同步填写　③ 竣工时按登记册三列<b style="color:var(--cy)">自动组卷</b>，无需重新编号</p>
     </div>
-    <div class="banner" data-rv style="--i:5" style="justify-content:center;font-size:15.5px"><b>归档工作在日常就完成了 90%，竣工只剩整理和装订</b> —— 本次推行方案最大的技术价值点。</div>
+    <div class="banner" data-rv style="--i:5;text-align:center;font-size:15.5px"><b>归档工作在日常就完成了 90%，竣工只剩整理和装订</b> —— 本次推行方案最大的技术价值点。</div>
   </div>
 </section>
 
@@ -695,21 +921,57 @@ ul.rows li::before{content:'';flex:none;width:7px;height:7px;margin-top:9px;bord
 
 <!-- S20 DIVIDER 05 -->
 <section class="slide divider" data-section="PART 05 · NAS 平台" data-title="第五部分 · NAS 平台">
-  <div class="wrap">
-    <div class="giant" data-n="05" data-rv style="--i:0">05</div>
+  <div class="wrap" style="gap:5vw">
+    <div class="giant" data-n="05" data-rv style="--i:0;font-size:clamp(96px,11vw,170px)">05</div>
     <div class="dv-body">
       <div class="kicker" data-rv style="--i:1">PART 05 · NAS PLATFORM</div>
       <h2 class="dv-title" data-rv style="--i:2">NAS 协同办公平台</h2>
       <p class="lead" data-rv style="--i:3">制度定规则，NAS 保执行 —— DCP 文件夹结构的物理实现。</p>
       <div class="secmap" data-rv style="--i:4"><span>01 背景</span><span>02 要点</span><span>03 效益</span><span>04 推行</span><span class="on">05 NAS</span><span>06 计划</span><span>07 决策</span></div>
     </div>
+    <div class="nas-stage" data-rv style="--i:5" aria-label="NAS 三维模型，可拖拽旋转">
+      <div class="nas-shadow"></div>
+      <div class="nas-loading" id="nasLoading">LOADING MODEL</div>
+    </div>
+  </div>
+</section>
+
+<!-- S21a NAS 是什么（大白话） -->
+<section class="slide" data-section="PART 05 · NAS 平台" data-title="NAS 是什么（大白话）">
+  <div class="wrap" style="gap:14px">
+    <div class="kicker" data-rv style="--i:0">5.1 · WHAT IS NAS</div>
+    <h2 class="title" data-rv style="--i:1">NAS 是什么 —— <em>项目部的"共享文件柜"</em></h2>
+    <div class="banner cy" data-rv style="--i:2;font-size:14px;padding:13px 18px">一句话：<b>NAS 就是一台放在项目部的、专门存文件的专用电脑</b> —— 相当于给项目配了一间 <b>24 小时开门、自动留底</b>的资料室。</div>
+    <div class="grid g3" style="gap:12px">
+      <div class="card" data-rv style="--i:3;padding:14px 18px"><h3 style="font-size:14px">像一间资料室</h3><p style="font-size:12.5px">全部受控文件按编号规则放进"抽屉"（文件夹）—— 谁的文件放在哪里，清清楚楚、一找一个准。</p></div>
+      <div class="card" data-rv style="--i:4;padding:14px 18px"><h3 style="font-size:14px">像一张门禁卡</h3><p style="font-size:12.5px">一人一个账号，能开哪个抽屉由项目部分配 —— <b style="color:var(--cy)">该看的看得到，不该看的进不去</b>。</p></div>
+      <div class="card" data-rv style="--i:5;padding:14px 18px"><h3 style="font-size:14px">人在哪都能查</h3><p style="font-size:12.5px">北京办公室、项目部、出差路上 —— 有网络就能连上这间"资料室"，不用跑、不用等、不用求人打包。</p></div>
+    </div>
+    <div class="grid g2" style="gap:12px">
+      <div class="card gold" data-rv style="--i:6;padding:14px 18px"><h3 style="font-size:14px">文件在自己手里</h3><p style="font-size:12.5px">不是网上租的"云盘" —— 设备实实在在放在项目部，<b style="color:var(--gd)">文件在自家柜子里，钥匙在自己手里</b>。</p></div>
+      <div class="card" data-rv style="--i:7;padding:14px 18px"><h3 style="font-size:14px">还会自动留底</h3><p style="font-size:12.5px">每天自动"拍照留底"（快照），误删了、改错了，都能找回昨天的版本 —— <b>资料室自带后悔药</b>。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- S21b 三个场景 -->
+<section class="slide" data-section="PART 05 · NAS 平台" data-title="领导关注的三个场景">
+  <div class="wrap" style="gap:14px">
+    <div class="kicker" data-rv style="--i:0">5.2 · THREE SCENARIOS</div>
+    <h2 class="title" data-rv style="--i:1">机关领导最关心的 <em>三个场景</em></h2>
+    <div class="grid g3" style="gap:12px;align-items:stretch">
+      <div class="card" data-rv style="--i:2;padding:14px 18px"><h3 style="font-size:14px">① 在北京就能查项目</h3><p style="font-size:12.5px"><b style="color:var(--rd)">现状：</b>想看项目内业，要等项目打包发来，或专门跑一趟。<br><b style="color:var(--cy)">以后：</b>机关业务部门用项目部分配的账号登录，<b>在北京办公室直接查看项目最新内业资料</b> —— 数据与现场对齐，日常检查随时做，发现问题及时指导。</p></div>
+      <div class="card" data-rv style="--i:3;padding:14px 18px"><h3 style="font-size:14px">② 出差检查 · 好钢用在刀刃上</h3><p style="font-size:12.5px"><b style="color:var(--rd)">现状：</b>到项目先花两三天翻资料，宝贵的现场时间被挤占。<br><b style="color:var(--cy)">以后：</b><b>出发前先用 NAS 把内业重点过一遍</b>，带着问题去 —— 检查时间全部留给现场。</p></div>
+      <div class="card" data-rv style="--i:4;padding:14px 18px"><h3 style="font-size:14px">③ 大文件不再微信传来传去</h3><p style="font-size:12.5px"><b style="color:var(--rd)">现状：</b>优质工程申报、投标文件动辄几百兆 —— 微信发不动、压缩看不清、版本满天飞。<br><b style="color:var(--cy)">以后：</b><b>大文件统一放 NAS，一个入口协同整理</b>，领导随时打开就是最新版。</p></div>
+    </div>
+    <p class="lead" data-rv style="--i:5;text-align:center">三个场景，都不用买软件、不用专门培训 —— <b>项目部分一个账号，机关就能用起来</b>。</p>
   </div>
 </section>
 
 <!-- S21 为什么 NAS + 架构 -->
 <section class="slide" data-section="PART 05 · NAS 平台" data-title="为什么是 NAS ＋ 架构">
   <div class="wrap" style="gap:14px">
-    <div class="kicker" data-rv style="--i:0">5.1 / 5.2 · WHY NAS & ARCHITECTURE</div>
+    <div class="kicker" data-rv style="--i:0">5.3 · WHY NAS &amp; ARCHITECTURE</div>
     <h2 class="title" data-rv style="--i:1">为什么是 NAS —— <em>唯一数据源</em>，人走文件留</h2>
     <div class="split split-58" style="align-items:center">
       <div style="display:flex;flex-direction:column;gap:12px">
@@ -720,7 +982,7 @@ ul.rows li::before{content:'';flex:none;width:7px;height:7px;margin-top:9px;bord
           <li>误删、勒索病毒、硬盘损坏 ⇒ <b>快照 + 回收站 + 定期备份</b></li>
         </ul>
         <div class="card gold" data-rv style="--i:3"><h3>成本量级</h3><p>项目部级一套（4 盘位 + 企业级硬盘）约 <b style="color:var(--gd)">1～1.5 万元</b>，覆盖面是全项目所有技术文件。</p></div>
-        <div class="banner cy" data-rv style="--i:4" style="font-size:12.5px;padding:11px 16px">主 NAS 在项目部，备份 NAS 在机关 / 异地 —— 直接对应 61 号令<b>"异地异质备份"</b>。</div>
+        <div class="banner cy" data-rv style="--i:4;font-size:12.5px;padding:11px 16px">主 NAS 在项目部，备份 NAS 在机关 / 异地 —— 直接对应 61 号令<b>"异地异质备份"</b>。</div>
       </div>
       <div class="arch" data-rv style="--i:3">
         <div class="anode hq"><h4>公司机关（北京）</h4><p>文件控制中心 / 备份中心</p></div>
@@ -738,7 +1000,7 @@ ul.rows li::before{content:'';flex:none;width:7px;height:7px;margin-top:9px;bord
 <!-- S22 权限与备份 -->
 <section class="slide" data-section="PART 05 · NAS 平台" data-title="权限模型 ＋ 备份 3-2-1">
   <div class="wrap" style="gap:14px">
-    <div class="kicker" data-rv style="--i:0">5.4 / 5.6 · PERMISSION & BACKUP</div>
+    <div class="kicker" data-rv style="--i:0">5.4 · PERMISSION &amp; BACKUP</div>
     <h2 class="title" data-rv style="--i:1">最小权限 · <em>3-2-1 备份</em></h2>
     <div class="split" style="align-items:start">
       <div>
@@ -758,7 +1020,7 @@ ul.rows li::before{content:'';flex:none;width:7px;height:7px;margin-top:9px;bord
           <div class="metric" style="padding:16px;text-align:center"><div class="n" style="justify-content:center"><span class="num" data-to="2">0</span></div><div class="l">种不同介质</div></div>
           <div class="metric" style="padding:16px;text-align:center"><div class="n" style="justify-content:center"><span class="num" data-to="1">0</span></div><div class="l">份异地存放</div></div>
         </div>
-        <div class="banner red" data-rv style="--i:3" style="font-size:12.5px;padding:11px 16px"><b>RAID ≠ 备份！</b>RAID 只防"硬盘坏"，不防误删、病毒加密、火灾、整机被盗。</div>
+        <div class="banner red" data-rv style="--i:3;font-size:12.5px;padding:11px 16px"><b>RAID ≠ 备份！</b>RAID 只防"硬盘坏"，不防误删、病毒加密、火灾、整机被盗。</div>
         <div class="card" data-rv style="--i:4" style="padding:14px 18px"><p style="font-size:12.5px">RAID 6 ＋热备 → 每日快照（留 30–90 天）→ 异地快照复制 → 移动硬盘冷备 → 竣工定版归档（只读双份）<br><b style="color:var(--cy)">每半年一次恢复演练</b> —— 备份有没有用，只有恢复过才知道。</p></div>
       </div>
     </div>
@@ -768,9 +1030,9 @@ ul.rows li::before{content:'';flex:none;width:7px;height:7px;margin-top:9px;bord
 <!-- S23 边界与局限 -->
 <section class="slide" data-section="PART 05 · NAS 平台" data-title="边界与局限（诚实说明）">
   <div class="wrap" style="gap:14px">
-    <div class="kicker" data-rv style="--i:0">5.9 · HONEST LIMITS</div>
+    <div class="kicker" data-rv style="--i:0">5.5 · HONEST LIMITS</div>
     <h2 class="title" data-rv style="--i:1">已知局限 —— <em>提前讲清，避免推广翻车</em></h2>
-    <div class="banner" data-rv style="--i:2" style="align-items:flex-start"><b style="flex:none">⚠ 最关键的一条：</b><span>NAS 的"版本历史"≠"协同编辑" —— 只能回退旧版，<b>不能两人同时编辑并自动合并</b>。多人同时编辑 ⇒ 在线云文档（纪要 / 台账 / 清单）；正式受控文件 ⇒ 存 NAS，<b>一人编辑、他人只读</b>。</span></div>
+    <div class="banner" data-rv style="--i:2;display:flex;align-items:flex-start"><b style="flex:none">⚠ 最关键的一条：</b><span>NAS 的"版本历史"≠"协同编辑" —— 只能回退旧版，<b>不能两人同时编辑并自动合并</b>。多人同时编辑 ⇒ 在线云文档（纪要 / 台账 / 清单）；正式受控文件 ⇒ 存 NAS，<b>一人编辑、他人只读</b>。</span></div>
     <div class="grid g2" style="gap:12px">
       <div class="card" data-rv style="--i:3" style="padding:14px 18px"><h3 style="font-size:14px">外网访问速度受限</h3><p>分级存储；竣工资料本地归档后再同步</p></div>
       <div class="card" data-rv style="--i:4" style="padding:14px 18px"><h3 style="font-size:14px">依赖网络 · 不是零管理</h3><p>项目部局域网内可用；DC 兼任系统管理员</p></div>
@@ -787,25 +1049,25 @@ ul.rows li::before{content:'';flex:none;width:7px;height:7px;margin-top:9px;bord
     <div class="kicker" data-rv style="--i:0">PART 06 · IMPLEMENTATION</div>
     <h2 class="title" data-rv style="--i:1">实施计划 —— <em>四阶段路线图</em></h2>
     <div class="steps steps4">
-      <div class="step" data-rv style="--i:2"><div class="dot">1</div><div class="card" style="height:100%;padding:16px 18px"><h3 style="font-size:14px">准备期 <span class="mono" style="font-size:10.5px;color:var(--cy)">第 1 月</span></h3><p>成立工作小组 · 调研选型 · 确定试点<br><b style="color:var(--cy)">安质部牵头</b></p></div></div>
-      <div class="step" data-rv style="--i:3"><div class="dot">2</div><div class="card" style="height:100%;padding:16px 18px"><h3 style="font-size:14px">试点期 <span class="mono" style="font-size:10.5px;color:var(--cy)">第 2–7 月</span></h3><p>NAS 采购部署 · 项目级 DCP · 配 DC · 培训试运行<br><b style="color:var(--cy)">试点项目部</b></p></div></div>
-      <div class="step" data-rv style="--i:4"><div class="dot">3</div><div class="card" style="height:100%;padding:16px 18px"><h3 style="font-size:14px">总结期 <span class="mono" style="font-size:10.5px;color:var(--cy)">第 8–10 月</span></h3><p>效果评估 · 公司级制度与表单<br><b style="color:var(--cy)">安质部 ＋ 工程部</b></p></div></div>
-      <div class="step" data-rv style="--i:5"><div class="dot">4</div><div class="card" style="height:100%;padding:16px 18px"><h3 style="font-size:14px">推广期 <span class="mono" style="font-size:10.5px;color:var(--cy)">第 11 月起</span></h3><p>发文 · 新项目全覆盖 · 纳入考核<br><b style="color:var(--cy)">安质部</b></p></div></div>
+      <div class="step" data-rv style="--i:2"><div class="dot">1</div><div class="card" style="height:100%;padding:16px 18px"><h3 style="font-size:14px">准备期 <span class="mono" style="font-size:10.5px;color:var(--cy)">第 1 月</span></h3><p>成立工作小组 · 调研选型 · 确定试点</p></div></div>
+      <div class="step" data-rv style="--i:3"><div class="dot">2</div><div class="card" style="height:100%;padding:16px 18px"><h3 style="font-size:14px">试点期 <span class="mono" style="font-size:10.5px;color:var(--cy)">第 2–7 月</span></h3><p>NAS 采购部署 · 项目级 DCP · 配 DC · 培训试运行</p></div></div>
+      <div class="step" data-rv style="--i:4"><div class="dot">3</div><div class="card" style="height:100%;padding:16px 18px"><h3 style="font-size:14px">总结期 <span class="mono" style="font-size:10.5px;color:var(--cy)">第 8–10 月</span></h3><p>效果评估 · 公司级制度与表单</p></div></div>
+      <div class="step" data-rv style="--i:5"><div class="dot">4</div><div class="card" style="height:100%;padding:16px 18px"><h3 style="font-size:14px">推广期 <span class="mono" style="font-size:10.5px;color:var(--cy)">第 11 月起</span></h3><p>发文 · 新项目全覆盖 · 纳入考核</p></div></div>
     </div>
     <div class="chips" data-rv style="--i:6">
       <span class="chip">试点优选：工期 2 年+ · 文件量大 · 意愿强 · 离机关近；不选收尾项目</span>
     </div>
-    <div class="banner red" data-rv style="--i:7" style="font-size:12.5px">风险前三：形式主义执行 ⇒ <b>纳入考核＋驻场辅导</b>；DC 不到位 ⇒ <b>定编定岗 · AB 角</b>；与档案馆要求不一致 ⇒ <b>试点前主动对接（关键前置动作）</b>。</div>
+    <div class="banner red" data-rv style="--i:7;font-size:12.5px">风险前三：形式主义执行 ⇒ <b>纳入考核＋驻场辅导</b>；DC 不到位 ⇒ <b>定编定岗 · AB 角</b>；与档案馆要求不一致 ⇒ <b>试点前主动对接（关键前置动作）</b>。</div>
   </div>
 </section>
 
 <!-- S25 决策四件事 -->
 <section class="slide" data-section="PART 07 · 决策事项" data-title="请领导决策的四件事 ★">
   <div class="wrap">
-    <div class="kicker" data-rv style="--i:0" style="color:var(--gd)">PART 07 · DECISIONS NEEDED</div>
-    <h2 class="title" data-rv style="--i:1">请领导决策的<em style="background:linear-gradient(100deg,var(--gd),#D89B3F);-webkit-background-clip:text;background-clip:text">四件事</em></h2>
+    <div class="kicker" data-rv style="--i:0">PART 07 · DECISIONS NEEDED</div>
+    <h2 class="title" data-rv style="--i:1">请领导决策的<em>四件事</em></h2>
     <div class="dcards">
-      <div class="dcard" data-rv style="--i:2"><div class="dn">01</div><h3>是否同意立项推进</h3><p>"文件控制体系 ＋ NAS 协同办公"<b>作为一个整体项目</b>推进；安全质量环保部牵头，工程管理部、技术中心配合。</p></div>
+      <div class="dcard" data-rv style="--i:2"><div class="dn">01</div><h3>是否同意立项推进</h3><p>"文件控制体系 ＋ NAS 协同办公"<b>作为一个整体项目</b>推进。</p></div>
       <div class="dcard" data-rv style="--i:3"><div class="dn">02</div><h3>确定试点项目</h3><p>圈定 <b>1～2 个新开工项目</b>作为试点，试点周期 6 个月，给予人员和费用支持。</p></div>
       <div class="dcard" data-rv style="--i:4"><div class="dn">03</div><h3>明确编制与经费</h3><p>DC 岗位<b>按项目管理岗位定编</b>（不占资料员编制）；NAS 及备份投入依 61 号令<b>列入工程造价</b>。</p></div>
       <div class="dcard" data-rv style="--i:5"><div class="dn">04</div><h3>同意发文与考核</h3><p>试点成功后以<b>公司名义</b>印发《建设工程文件控制管理办法》，纳入项目部<b>月度检查考核</b>。</p></div>
@@ -821,7 +1083,7 @@ ul.rows li::before{content:'';flex:none;width:7px;height:7px;margin-top:9px;bord
       <p>"我建议不铺开，<em>先选一个项目，试 6 个月</em>。<br>成了，我们有制度可发；不成，只损失一个项目的试点成本。"</p>
     </div>
     <div class="thanks" data-rv style="--i:2">谢谢聆听 · 请领导指示</div>
-    <div class="chips" data-rv style="--i:3" style="justify-content:center">
+    <div class="chips" data-rv style="--i:3;justify-content:center">
       <span class="chip cy">安全质量环保部 · 巩 略</span>
       <span class="chip">2026 年 10 月</span>
       <span class="chip">内部汇报 · 建议稿</span>
@@ -837,7 +1099,7 @@ ul.rows li::before{content:'';flex:none;width:7px;height:7px;margin-top:9px;bord
   <button class="nav-btn" id="gridBtn" aria-label="目录">▦</button>
   <button class="nav-btn" id="nextBtn" aria-label="下一页">→</button>
 </nav>
-<div class="hint">← → 切换 · O 目录 · F 全屏</div>
+<div class="hint">← → / 滚轮 切换 · O 目录 · F 全屏</div>
 
 <div class="ov" id="ov">
   <div class="ov-box">
@@ -900,16 +1162,38 @@ document.addEventListener('keydown',e=>{
   if(k==='o')toggleOv(true);
 });
 document.addEventListener('click',e=>{
-  if(e.target.closest('.nav,.ov,button,a'))return;
+  if(e.target.closest('.nav,.ov,button,a,.nas-stage'))return;
   const x=e.clientX/innerWidth;
   x<0.18?prev():next();
 });
 let tx=0,ty=0;
 document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
 document.addEventListener('touchend',e=>{
+  if(e.target.closest&&e.target.closest('.nas-stage'))return; // 模型区内触摸→旋转
   const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
   if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))dx<0?next():prev();
 },{passive:true});
+
+/* ---- 鼠标滚轮翻页：累计阈值 + 防抖，避免轻滚连翻 ---- */
+let wheelAcc=0,wheelTimer=null;
+const WHEEL_THRESHOLD=50;            // 累计达到 50px 触发一次翻页
+const WHEEL_COOLDOWN=300;             // 翻页后冷却 300ms 防连翻
+let wheelLock=false;
+addEventListener('wheel',e=>{
+  if(ovOpen||wheelLock)return;        // 目录打开或冷却中不响应
+  if(e.target.closest&&e.target.closest('.nas-stage'))return; // 3D 模型区内滚轮→缩放，不翻页
+  e.preventDefault();
+  if(Math.abs(e.deltaY)<6)return;     // 忽略极小抖动
+  wheelAcc+=e.deltaY;
+  if(Math.abs(wheelAcc)>=WHEEL_THRESHOLD){
+    wheelAcc>0?next():prev();
+    wheelAcc=0;
+    wheelLock=true;
+    setTimeout(()=>wheelLock=false,WHEEL_COOLDOWN);
+  }
+  clearTimeout(wheelTimer);
+  wheelTimer=setTimeout(()=>wheelAcc=0,120);
+},{passive:false});
 
 /* ============ OVERVIEW ============ */
 const ov=document.getElementById('ov'),ovGrid=document.getElementById('ovGrid');
@@ -945,13 +1229,13 @@ ov.addEventListener('click',e=>{if(e.target===ov)toggleOv(false);});
       p.x+=p.vx;p.y+=p.vy;
       if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
       cx.beginPath();cx.arc(p.x,p.y,p.r,0,7);
-      cx.fillStyle='rgba(110,190,255,.5)';cx.fill();
+      cx.fillStyle='rgba(27,73,101,.32)';cx.fill();
     }
     for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
       const a=pts[i],b=pts[j],dx=a.x-b.x,dy=a.y-b.y,d=dx*dx+dy*dy;
       if(d<LINK*LINK){
         cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(b.x,b.y);
-        cx.strokeStyle='rgba(80,150,255,'+(0.10*(1-d/(LINK*LINK))).toFixed(3)+')';
+        cx.strokeStyle='rgba(27,73,101,'+(0.14*(1-d/(LINK*LINK))).toFixed(3)+')';
         cx.lineWidth=1;cx.stroke();
       }
     }
@@ -963,6 +1247,93 @@ ov.addEventListener('click',e=>{if(e.target===ov)toggleOv(false);});
 const h=parseInt((location.hash||'').slice(1),10);
 if(h>=1&&h<=slides.length)cur=h-1;
 render();
+</script>
+
+<!-- ============ NAS 3D MODEL (three.js) ============ -->
+<script type="importmap">
+{"imports":{
+  "three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
+
+(function(){
+  const stage=document.querySelector('.nas-stage');
+  if(!stage)return;
+  const slide=stage.closest('.slide');
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* hint */
+  const hint=document.createElement('div');hint.className='nas-hint';
+  hint.textContent='拖拽旋转 · 滚轮缩放';stage.appendChild(hint);
+
+  /* renderer / scene / camera */
+  const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));
+  stage.appendChild(renderer.domElement);
+  const scene=new THREE.Scene();
+  scene.environment=new THREE.PMREMGenerator(renderer)
+    .fromScene(new RoomEnvironment(),.04).texture;
+  const camera=new THREE.PerspectiveCamera(32,1,.1,100);
+  camera.position.set(0,1.2,5.5);
+
+  /* lights (环境贴图为主，定向光出高光) */
+  const key=new THREE.DirectionalLight(0xfff6e8,1.1);key.position.set(3,5,4);scene.add(key);
+  const rim=new THREE.DirectionalLight(0xdfe9f2,.45);rim.position.set(-4,2,-3);scene.add(rim);
+
+  /* controls: 丝滑阻尼 + 自动旋转 */
+  const controls=new OrbitControls(camera,renderer.domElement);
+  controls.enableDamping=true;controls.dampingFactor=.06;
+  controls.autoRotate=!reduced;controls.autoRotateSpeed=.9;
+  controls.enablePan=false;controls.minDistance=4;controls.maxDistance=9;
+  controls.minPolarAngle=.5;controls.maxPolarAngle=2.1;
+
+  /* load model */
+  let root=null,ready=false,started=false,t0=0;
+  const ld=document.getElementById('nasLoading');
+  new GLTFLoader().load('assets/nas_storage_device.glb',g=>{
+    root=g.scene;
+    const box=new THREE.Box3().setFromObject(root);
+    const size=box.getSize(new THREE.Vector3()),ctr=box.getCenter(new THREE.Vector3());
+    const base=2.05/Math.max(size.x,size.y,size.z,1e-6);
+    root.userData.base=base;
+    root.scale.setScalar(base*.86);
+    root.position.set(-ctr.x*base,-ctr.y*base,-ctr.z*base);
+    scene.add(root);ready=true;
+    if(ld){ld.style.opacity='0';setTimeout(()=>ld.remove(),600);}
+  },undefined,()=>{if(ld)ld.textContent='MODEL LOAD FAILED';});
+
+  /* resize */
+  function resize(){
+    const r=stage.getBoundingClientRect(),w=r.width,h=r.height;
+    if(!w||!h)return;
+    renderer.getSize(new THREE.Vector2());
+    const cur=renderer.domElement.width/(Math.min(devicePixelRatio||1,2));
+    if(Math.abs(cur-w)>1||Math.abs(renderer.domElement.height/(Math.min(devicePixelRatio||1,2))-h)>1){
+      renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();
+    }
+  }
+  new ResizeObserver(resize).observe(stage);
+
+  /* render loop: 仅本页可见时渲染；入场 900ms ease-out */
+  (function loop(t){
+    requestAnimationFrame(loop);
+    if(!slide.classList.contains('active'))return;
+    resize();
+    if(ready&&!started){started=true;t0=t;}
+    if(root&&started){
+      const p=Math.min(1,(t-t0)/900),e=1-Math.pow(1-p,3);
+      root.scale.setScalar(root.userData.base*(.86+.14*e));
+    }
+    controls.update();
+    renderer.render(scene,camera);
+  })(performance.now());
+})();
 </script>
 </body>
 </html>

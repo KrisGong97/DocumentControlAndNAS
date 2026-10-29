@@ -1,0 +1,9 @@
+# 原始工程文件与内部材料——不入公开仓库
+*.pdf
+*.docx
+
+# 调试产物
+.screenshots/
+
+# 根目录重复模型（正式文件在 assets/）
+/nas_storage_device.glb
