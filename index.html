@@ -20,7 +20,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100%}
-body{background:var(--bg0);color:var(--tx);font-family:var(--fz);overflow:hidden;-webkit-font-smoothing:antialiased}
+body{background:var(--bg0);color:var(--tx);font-family:var(--fz);overflow:hidden;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
 ::selection{background:rgba(58,226,255,.28)}
 
 /* ============ BACKGROUND ============ */
@@ -48,7 +48,7 @@ body{background:var(--bg0);color:var(--tx);font-family:var(--fz);overflow:hidden
 #seclbl{color:var(--mt);text-transform:uppercase}
 .badge-int{border:1px solid rgba(242,194,104,.4);color:var(--gd);padding:4px 12px;border-radius:99px;font-size:10px;letter-spacing:.2em}
 .nav{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);z-index:70;display:flex;align-items:center;gap:18px}
-.nav-btn{width:44px;height:44px;border-radius:50%;border:1px solid var(--ln);background:rgba(10,19,34,.6);backdrop-filter:blur(8px);color:var(--tx);font-size:17px;cursor:pointer;transition:all .35s var(--ez);display:grid;place-items:center}
+.nav-btn{width:44px;height:44px;border-radius:50%;border:1px solid var(--ln);background:rgba(10,19,34,.6);backdrop-filter:blur(8px);color:var(--tx);font-size:17px;cursor:pointer;transition:all .35s var(--ez);display:grid;place-items:center;touch-action:manipulation}
 .nav-btn:hover{border-color:var(--cy);color:var(--cy);box-shadow:0 0 18px rgba(58,226,255,.3);transform:translateY(-2px)}
 .counter{font-family:var(--fm);font-size:12px;color:var(--mt);letter-spacing:.2em;min-width:74px;text-align:center}
 .counter b{color:var(--cy);font-weight:600}
@@ -62,15 +62,16 @@ body{background:var(--bg0);color:var(--tx);font-family:var(--fz);overflow:hidden
 @media (min-width:769px){
   .deck{max-width:calc(100vh * 16 / 9);max-height:calc(100vw * 9 / 16);margin:auto}
 }
-.slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:66px 74px 92px;
+.slide{position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;padding:66px 74px 92px;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;
   opacity:0;visibility:hidden;transform:translate3d(4.5%,0,0) scale(.982);
-  transition:opacity .78s var(--ez),transform .78s var(--ez),visibility 0s linear .78s;pointer-events:none}
+  transition:opacity .78s var(--ez),transform .78s var(--ez),visibility 0s linear .78s;pointer-events:none;will-change:transform,opacity}
+.slide::-webkit-scrollbar{display:none}
 .slide.is-before{transform:translate3d(-4.5%,0,0) scale(.982)}
 .slide.active{opacity:1;visibility:visible;transform:none;pointer-events:auto;z-index:2;transition:opacity .78s var(--ez),transform .78s var(--ez),visibility 0s}
-.wrap{width:100%;max-width:1180px;max-height:100%;display:flex;flex-direction:column;justify-content:center;gap:18px}
+.wrap{width:100%;max-width:1180px;margin:auto 0;display:flex;flex-direction:column;justify-content:center;gap:18px}
 
 /* reveal stagger */
-[data-rv]{opacity:0;transform:translateY(26px);transition:opacity .72s var(--ez),transform .72s var(--ez);transition-delay:calc(140ms + var(--i,0)*90ms)}
+[data-rv]{opacity:0;transform:translateY(26px);transition:opacity .72s var(--ez),transform .72s var(--ez);transition-delay:calc(140ms + var(--i,0)*90ms);will-change:transform,opacity;backface-visibility:hidden}
 .slide.active [data-rv]{opacity:1;transform:none}
 .slide:not(.active) [data-rv]{transition-delay:0ms;transition-duration:.3s}
 
@@ -84,8 +85,8 @@ body{background:var(--bg0);color:var(--tx);font-family:var(--fz);overflow:hidden
 .tag{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-family:var(--fm);letter-spacing:.12em;color:var(--gd);border:1px solid rgba(242,194,104,.45);padding:4px 12px;border-radius:99px;width:fit-content}
 
 /* ============ COMPONENTS ============ */
-.card{background:linear-gradient(160deg,rgba(255,255,255,.055),rgba(255,255,255,.018));border:1px solid var(--ln);border-radius:16px;padding:20px 22px;backdrop-filter:blur(8px);transition:transform .45s var(--ez),border-color .45s,box-shadow .45s}
-.card:hover{transform:translateY(-3px);border-color:rgba(58,226,255,.4);box-shadow:0 14px 40px -18px rgba(58,226,255,.35)}
+.card{background:linear-gradient(160deg,rgba(255,255,255,.055),rgba(255,255,255,.018));border:1px solid var(--ln);border-radius:16px;padding:20px 22px;backdrop-filter:blur(8px);transition:transform .45s var(--ez),border-color .45s,box-shadow .45s;will-change:transform}
+.card:hover{transform:translateY(-4px) scale(1.012);border-color:rgba(58,226,255,.45);box-shadow:0 16px 44px -18px rgba(58,226,255,.42)}
 .card h3{font-size:16px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:10px}
 .card p{font-size:13px;color:var(--mt);line-height:1.7}
 .card.gold{border-color:rgba(242,194,104,.35);background:linear-gradient(160deg,rgba(242,194,104,.09),rgba(255,255,255,.02))}
@@ -95,6 +96,7 @@ body{background:var(--bg0);color:var(--tx);font-family:var(--fz);overflow:hidden
 .gold .num-badge{color:var(--gd);border-color:rgba(242,194,104,.5);background:rgba(242,194,104,.08)}
 .grid{display:grid;gap:16px}
 .g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g5{grid-template-columns:repeat(5,1fr)}
+.sc-center{max-width:70%;margin-left:auto;margin-right:auto}
 .banner{border:1px solid rgba(242,194,104,.4);background:linear-gradient(90deg,rgba(242,194,104,.12),rgba(242,194,104,.03));border-radius:14px;padding:15px 22px;font-size:15px;color:#F7DCA6;line-height:1.7;display:flex;gap:12px;align-items:center}
 .banner b{color:var(--gd)}
 .banner.cy{border-color:rgba(58,226,255,.35);background:linear-gradient(90deg,rgba(58,226,255,.1),rgba(58,226,255,.02));color:#C6F3FF}
@@ -251,7 +253,7 @@ ul.rows li::before{content:'';flex:none;width:7px;height:7px;margin-top:9px;bord
 .ov-box{width:min(1020px,88vw);max-height:82vh;overflow:auto;padding:34px;border:1px solid var(--ln);border-radius:22px;background:rgba(10,19,34,.7)}
 .ov-box h3{font-family:var(--fm);font-size:12px;letter-spacing:.3em;color:var(--cy);margin-bottom:20px}
 .ov-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.ov-item{display:flex;align-items:center;gap:10px;text-align:left;border:1px solid var(--ln);border-radius:11px;padding:11px 13px;background:rgba(255,255,255,.03);color:var(--mt);font-size:12px;cursor:pointer;transition:all .3s;font-family:var(--fz)}
+.ov-item{display:flex;align-items:center;gap:10px;text-align:left;border:1px solid var(--ln);border-radius:11px;padding:11px 13px;background:rgba(255,255,255,.03);color:var(--mt);font-size:12px;cursor:pointer;transition:all .3s;font-family:var(--fz);touch-action:manipulation}
 .ov-item:hover{border-color:var(--cy);color:var(--tx);background:rgba(58,226,255,.07)}
 .ov-item .ov-num{font-family:var(--fe);font-weight:700;color:var(--cy);font-size:12px;flex:none}
 
@@ -539,12 +541,14 @@ html{-webkit-text-size-adjust:100%}
 
 /* 手机 / 窄屏 */
 @media (max-width:768px){
-  .slide{padding:22px 14px 110px;touch-action:pan-y}
+  .deck{height:100dvh}
+  .slide{padding:18px 14px 96px;padding-left:max(14px,env(safe-area-inset-left,0px));padding-right:max(14px,env(safe-area-inset-right,0px));touch-action:pan-y}
   .wrap{gap:12px;zoom:.96}
   .chrome{display:none}
-  .nav{bottom:calc(12px + env(safe-area-inset-bottom,0px));gap:10px}
-  .nav-btn{width:38px;height:38px;font-size:15px;border-radius:9px}
-  .counter{font-size:11px;min-width:58px}
+  .hint{display:none}
+  .nav{bottom:calc(12px + env(safe-area-inset-bottom,0px));gap:12px}
+  .nav-btn{width:50px;height:50px;font-size:21px;border-radius:14px}
+  .counter{font-size:12.5px;min-width:64px}
   .kicker{font-size:10px;letter-spacing:.2em;gap:8px}
   .kicker::before{width:20px}
   .title{font-size:clamp(20px,5.6vw,28px)}
@@ -563,15 +567,35 @@ html{-webkit-text-size-adjust:100%}
   .chip{font-size:10px;padding:5px 10px}
   .fname,.flegend{column-gap:7px;row-gap:12px}
   .fname{font-size:clamp(15px,4.2vw,20px)}
+  .sc-center{max-width:100%;margin-left:0;margin-right:0}
+  .ov-box{width:min(92vw,640px);max-height:78dvh;padding:18px}
+  .ov-item{padding:13px 14px;font-size:12.5px}
   .ov-grid{grid-template-columns:1fr 1fr}
 }
 @media (max-width:560px){
-  .g3,.g5,.metrics,.steps,.steps4,.kv,.mod-grid,.dcards{grid-template-columns:1fr}
+  .g2,.g3,.g5,.metrics,.steps,.steps4,.kv,.mod-grid,.dcards{grid-template-columns:1fr}
   .slide .wrap{zoom:.93}
 }
 @media (max-width:420px){
-  .slide .wrap{zoom:.88}
-  .title{font-size:19px}
+  .slide{padding:14px 10px 90px}
+  .slide .wrap{zoom:.86}
+  .title{font-size:18px}
+  .kicker{font-size:9px;letter-spacing:.16em}
+  .nav{gap:8px}
+  .nav-btn{width:46px;height:46px;font-size:19px}
+  .counter{font-size:10.5px;min-width:54px}
+}
+
+/* 横屏手机 / 矮窗口（含折叠屏外屏横用） */
+@media (max-height:500px) and (orientation:landscape){
+  .chrome{padding:10px 16px}
+  .slide{padding:42px 20px 62px}
+  .slide .wrap{zoom:.85;gap:9px}
+  .title{font-size:clamp(17px,3.2vw,26px)}
+  .nav{bottom:8px}
+  .nav-btn{width:40px;height:40px;font-size:17px}
+  .counter{font-size:11px;min-width:56px}
+  .hint{display:none}
 }
 </style>
 </head>
@@ -633,7 +657,7 @@ html{-webkit-text-size-adjust:100%}
       <div class="card" data-rv style="--i:3" style="padding:14px 18px"><h3 style="font-size:14px;margin:0"><span class="num-badge" style="min-width:28px;height:28px;font-size:12px">02</span>DCP 规范要点</h3><p style="margin-top:6px">十个核心模块：命名规则、版次控制、审批代码</p></div>
       <div class="card" data-rv style="--i:4" style="padding:14px 18px"><h3 style="font-size:14px;margin:0"><span class="num-badge" style="min-width:28px;height:28px;font-size:12px">03</span>管理效益</h3><p style="margin-top:6px">这套东西值多少钱，不做的代价是什么</p></div>
       <div class="card" data-rv style="--i:5" style="padding:14px 18px"><h3 style="font-size:14px;margin:0"><span class="num-badge" style="min-width:28px;height:28px;font-size:12px">04</span>内地推行</h3><p style="margin-top:6px">两地差异、政策依据、关键矛盾与落地路径</p></div>
-      <div class="card" data-rv style="--i:6" style="padding:14px 18px"><h3 style="font-size:14px;margin:0"><span class="num-badge" style="min-width:28px;height:28px;font-size:12px">05</span>NAS 协同办公平台</h3><p style="margin-top:6px">是什么（大白话）、三个场景、架构、权限、备份、局限</p></div>
+      <div class="card" data-rv style="--i:6" style="padding:14px 18px"><h3 style="font-size:14px;margin:0"><span class="num-badge" style="min-width:28px;height:28px;font-size:12px">05</span>NAS 协同办公平台</h3><p style="margin-top:6px">是什么（大白话）、五个场景、架构、权限、备份、局限</p></div>
       <div class="card" data-rv style="--i:7" style="padding:14px 18px"><h3 style="font-size:14px;margin:0"><span class="num-badge" style="min-width:28px;height:28px;font-size:12px">06</span>实施计划 ＋ 07 决策事项</h3><p style="margin-top:6px">试点选择、三步走、落地风险；请领导决策四件事</p></div>
     </div>
     <div class="banner cy" data-rv style="--i:8">一至四部分讲"<b>香港怎么管、内地怎么落地</b>"，第五部分讲"<b>用什么工具承载</b>" —— 一套办法的两条腿，建议一并研究，不要拆开看。</div>
@@ -1017,17 +1041,21 @@ html{-webkit-text-size-adjust:100%}
   </div>
 </section>
 
-<!-- S21b 三个场景 -->
-<section class="slide" data-section="PART 05 · NAS 平台" data-title="领导关注的三个场景">
+<!-- S21b 五个场景 -->
+<section class="slide" data-section="PART 05 · NAS 平台" data-title="领导关注的五个场景">
   <div class="wrap" style="gap:14px">
-    <div class="kicker" data-rv style="--i:0">5.2 · THREE SCENARIOS</div>
-    <h2 class="title" data-rv style="--i:1">机关领导最关心的 <em>三个场景</em></h2>
+    <div class="kicker" data-rv style="--i:0">5.2 · FIVE SCENARIOS</div>
+    <h2 class="title" data-rv style="--i:1">公司领导关心的 <em>五个场景</em></h2>
     <div class="grid g3" style="gap:12px;align-items:stretch">
       <div class="card" data-rv style="--i:2;padding:14px 18px"><h3 style="font-size:14px">① 在北京就能查项目</h3><p style="font-size:12.5px"><b style="color:var(--rd)">现状：</b>想看项目内业，要等项目打包发来，或专门跑一趟。<br><b style="color:var(--cy)">以后：</b>机关业务部门用项目部分配的账号登录，<b>在北京办公室直接查看项目最新内业资料</b> —— 数据与现场对齐，日常检查随时做，发现问题及时指导。</p></div>
       <div class="card" data-rv style="--i:3;padding:14px 18px"><h3 style="font-size:14px">② 出差检查 · 好钢用在刀刃上</h3><p style="font-size:12.5px"><b style="color:var(--rd)">现状：</b>到项目先花两三天翻资料，宝贵的现场时间被挤占。<br><b style="color:var(--cy)">以后：</b><b>出发前先用 NAS 把内业重点过一遍</b>，带着问题去 —— 检查时间全部留给现场。</p></div>
       <div class="card" data-rv style="--i:4;padding:14px 18px"><h3 style="font-size:14px">③ 大文件不再微信传来传去</h3><p style="font-size:12.5px"><b style="color:var(--rd)">现状：</b>优质工程申报、投标文件动辄几百兆 —— 微信发不动、压缩看不清、版本满天飞。<br><b style="color:var(--cy)">以后：</b><b>大文件统一放 NAS，一个入口协同整理</b>，领导随时打开就是最新版。</p></div>
     </div>
-    <p class="lead" data-rv style="--i:5;text-align:center">三个场景，都不用买软件、不用专门培训 —— <b>项目部分一个账号，机关就能用起来</b>。</p>
+    <div class="grid g2 sc-center" style="gap:12px;align-items:stretch">
+      <div class="card" data-rv style="--i:5;padding:14px 18px"><h3 style="font-size:14px">④ 人员流动，工作不断档</h3><p style="font-size:12.5px"><b style="color:var(--rd)">现状：</b>老员工一走，资料、经验、流程全跟着走，新人接手要重新摸索好几个月。<br><b style="color:var(--cy)">以后：</b>所有工作产物按目录沉淀在 NAS，新人登录即可按图索骥，<b>经验从"个人能力"变成"公司能力"</b>，谁来接手都能迅速上手。</p></div>
+      <div class="card" data-rv style="--i:6;padding:14px 18px"><h3 style="font-size:14px">⑤ 部门间信息实时打通</h3><p style="font-size:12.5px"><b style="color:var(--rd)">现状：</b>工程部、商务部、物资部各管一摊，对方最新进展靠开会、发微信问，信息滞后。<br><b style="color:var(--cy)">以后：</b>各部门资料在 NAS 按权限共享，<b>随时能看对方最新版</b>，不用反复追问，部门配合更紧密。</p></div>
+    </div>
+    <p class="lead" data-rv style="--i:7;text-align:center">五个场景，都不用买软件、不用专门培训 —— <b>项目部分一个账号，机关就能用起来</b>。</p>
   </div>
 </section>
 
@@ -1143,7 +1171,7 @@ html{-webkit-text-size-adjust:100%}
 <section class="slide" data-section="CLOSING · 结束" data-title="结束页">
   <div class="wrap" style="align-items:center;text-align:center;gap:34px">
     <div class="quote" data-rv style="--i:1">
-      <p>"我建议不铺开，<em>先选一个项目，试 6 个月</em>。<br>成了，我们有制度可发；不成，只损失一个项目的试点成本。"</p>
+      <p>本次汇报，是为公司领导讲述一个<em>先进管理案例</em>，提供一个<em>管理思路</em>。<br>初心是希望提升公司管理水平，期望公司提质增效，越来越好。</p>
     </div>
     <div class="thanks" data-rv style="--i:2">谢谢聆听 · 请领导指示</div>
     <div class="chips" data-rv style="--i:3;justify-content:center">
@@ -1232,24 +1260,43 @@ document.addEventListener('click',e=>{
   x<0.18?prev():next();
 });
 let tx=0,ty=0,swiped=false;
+function tryVTurn(dy,inModel){ // 纵向滑动：页内没滚完让给滚动，到顶/底边缘才翻页
+  const sl=slides[cur],can=sl.scrollHeight>sl.clientHeight+2;
+  const atTop=sl.scrollTop<=2,atBot=sl.scrollTop+sl.clientHeight>=sl.scrollHeight-2;
+  if(dy<0&&(!can||atBot)){if(!inModel)next();return true;}
+  if(dy>0&&(!can||atTop)){if(!inModel)prev();return true;}
+  return false;
+}
 document.addEventListener('touchstart',e=>{
   if(e.touches.length!==1){swiped=true;return;}   // 多指（捏合缩放）不参与翻页
   tx=e.touches[0].clientX;ty=e.touches[0].clientY;swiped=false;
 },{passive:true});
 document.addEventListener('touchmove',e=>{
-  if(swiped)return;
+  if(swiped||ovOpen)return;
   const dx=e.touches[0].clientX-tx,dy=e.touches[0].clientY-ty;
+  const inModel=e.target.closest&&e.target.closest('.nas-stage');
   if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)*1.6){  // 明确横向意图立即翻页：部分内核判定滚动后只发 touchcancel、不发 touchend，必须移动态判定
     swiped=true;
-    if(e.target.closest&&e.target.closest('.nas-stage'))return; // 模型区内触摸→旋转
-    dx<0?next():prev();
+    if(!inModel)dx<0?next():prev();
+    return;
+  }
+  if(Math.abs(dy)>60&&Math.abs(dy)>Math.abs(dx)*1.6){  // 纵向滑动→上下换页（页内可滚时到边缘才换）
+    if(tryVTurn(dy,inModel))swiped=true;
   }
 },{passive:true});
 document.addEventListener('touchend',e=>{
-  if(swiped)return;
+  if(swiped||ovOpen)return;
   if(e.target.closest&&e.target.closest('.nas-stage'))return; // 模型区内触摸→旋转
   const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
   if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))dx<0?next():prev();
+  else if(Math.abs(dy)>56&&Math.abs(dy)>Math.abs(dx)*1.4)tryVTurn(dy,false);
+},{passive:true});
+document.addEventListener('touchcancel',e=>{  // 内核一旦接管滚动手势就发 touchcancel：在取消瞬间兜底判定，保证上下滑一定能翻页
+  if(swiped||ovOpen)return;
+  const t=e.changedTouches[0];if(!t)return;
+  const dx=t.clientX-tx,dy=t.clientY-ty;
+  if(Math.abs(dy)>56&&Math.abs(dy)>Math.abs(dx)*1.4)tryVTurn(dy,false);
+  swiped=true;
 },{passive:true});
 
 /* ---- 鼠标滚轮翻页：累计阈值 + 防抖，避免轻滚连翻 ---- */
