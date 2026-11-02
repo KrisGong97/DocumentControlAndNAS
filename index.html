@@ -68,7 +68,19 @@ body{background:var(--bg0);color:var(--tx);font-family:var(--fz);overflow:hidden
 .slide::-webkit-scrollbar{display:none}
 .slide.is-before{transform:translate3d(-4.5%,0,0) scale(.982)}
 .slide.active{opacity:1;visibility:visible;transform:none;pointer-events:auto;z-index:2;transition:opacity .78s var(--ez),transform .78s var(--ez),visibility 0s}
-.wrap{width:100%;max-width:1180px;margin:auto 0;display:flex;flex-direction:column;justify-content:center;gap:18px}
+.wrap{width:100%;max-width:1240px;margin:auto 0;display:flex;flex-direction:column;justify-content:center;gap:18px}
+
+/* ===== 旗帜水印：第4-15页香港区旗（紫荆花），第16-27页中国中铁旗 =====
+   纸底（浅色）主题：灰度+反色后彩色旗底变浅灰（融入白纸），白色徽记变深灰（若隐若现） */
+.slide:nth-child(n+4):nth-child(-n+15)::before,
+.slide:nth-child(n+16):nth-child(-n+27)::before{
+  content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-repeat:no-repeat;background-position:center;background-size:cover;
+  filter:grayscale(1) invert(1) contrast(1.1);opacity:.10;
+}
+.slide:nth-child(n+4):nth-child(-n+15)::before{background-image:url('assets/hk-flag.png')}
+.slide:nth-child(n+16):nth-child(-n+27)::before{background-image:url('assets/crec-flag.jpg');background-size:auto 155%;background-position:center top}
+.slide .wrap{position:relative;z-index:1}
 
 /* reveal stagger */
 [data-rv]{opacity:0;transform:translateY(26px);transition:opacity .72s var(--ez),transform .72s var(--ez);transition-delay:calc(140ms + var(--i,0)*90ms);will-change:transform,opacity;backface-visibility:hidden}
@@ -109,9 +121,9 @@ body{background:var(--bg0);color:var(--tx);font-family:var(--fz);overflow:hidden
 .chip.rd{color:var(--rd);border-color:rgba(255,107,122,.4);text-decoration:line-through}
 .chip.gd{color:var(--gd);border-color:rgba(242,194,104,.4)}
 ul.rows{list-style:none;display:flex;flex-direction:column;gap:12px}
-ul.rows li{display:flex;gap:14px;align-items:flex-start;font-size:14px;line-height:1.7;color:var(--mt)}
+ul.rows li{display:flex;flex-wrap:wrap;align-items:baseline;font-size:14px;line-height:1.7;color:var(--mt)}
 ul.rows li b{color:var(--tx);font-weight:600}
-ul.rows li::before{content:'';flex:none;width:7px;height:7px;margin-top:9px;border-radius:2px;background:var(--cy);box-shadow:0 0 8px rgba(58,226,255,.7);transform:rotate(45deg)}
+ul.rows li::before{content:'';flex:none;width:7px;height:7px;margin:9px 12px 0 0;border-radius:2px;background:var(--cy);box-shadow:0 0 8px rgba(58,226,255,.7);transform:rotate(45deg)}
 .tbl{width:100%;border-collapse:collapse;font-size:13px}
 .tbl th{font-family:var(--fm);font-size:11px;letter-spacing:.16em;color:var(--cy);text-align:left;padding:10px 14px;border-bottom:1px solid rgba(58,226,255,.3);font-weight:600}
 .tbl td{padding:10px 14px;border-bottom:1px solid rgba(140,170,255,.09);color:var(--mt);line-height:1.6;vertical-align:top}
@@ -413,7 +425,7 @@ ul.rows li b{color:var(--ink)}
 .ticker-track span b{color:rgba(217,115,13,.8)}
 
 /* ---- divider ---- */
-.giant{font-family:var(--fs);-webkit-text-stroke:0;color:#ECEAE6;font-weight:900}
+.giant{font-family:var(--fs);-webkit-text-stroke:0;color:rgba(55,53,47,.22);font-weight:900}
 .giant::after{background:none;-webkit-background-clip:border-box;background-clip:border-box;-webkit-text-fill-color:transparent;-webkit-text-stroke:0}
 .dv-title{font-family:var(--fs);font-weight:900;letter-spacing:-.01em}
 .dv-sub{color:var(--mt2)}
@@ -532,6 +544,19 @@ html{-webkit-text-size-adjust:100%}
 @media (min-width:769px) and (max-height:700px){.slide .wrap{zoom:.94}}
 @media (min-width:769px) and (max-height:600px){.slide .wrap{zoom:.87}}
 
+/* 大屏：内容随窗口等比放大（fluid scaling，流式缩放），消除大窗口下文字过小、留白过大 */
+@media (min-width:769px) and (min-height:900px){
+  .slide .wrap{zoom:1.08}
+}
+@media (min-width:769px) and (min-height:1050px){
+  .slide{padding:80px 92px 104px}
+  .slide .wrap{zoom:1.2}
+}
+@media (min-width:769px) and (min-height:1200px){
+  .slide{padding:92px 106px 118px}
+  .slide .wrap{zoom:1.32}
+}
+
 /* 中屏：收紧留白，四列组件降为两列 */
 @media (max-width:1100px){
   .slide{padding:56px 40px 88px}
@@ -557,8 +582,8 @@ html{-webkit-text-size-adjust:100%}
   .card h3{font-size:14px}
   .card p{font-size:12.5px}
   .banner{padding:11px 13px;font-size:12.5px;border-radius:10px;line-height:1.6}
-  ul.rows li{font-size:12.5px;gap:10px}
-  ul.rows li::before{margin-top:7px}
+  ul.rows li{font-size:12.5px}
+  ul.rows li::before{margin:7px 10px 0 0}
   .tbl{font-size:11.5px}
   .tbl th{padding:7px 8px;font-size:9.5px;letter-spacing:.06em}
   .tbl td{padding:7px 8px}
@@ -896,7 +921,7 @@ html{-webkit-text-size-adjust:100%}
     <div class="grid g3">
       <div class="card gold" data-rv style="--i:2"><h3><span class="num-badge">1</span>可追溯性</h3><p>争议时的证据链：哪天发、第几版、谁签收、对方哪天回、回的什么代码 —— 证据在平台里，不在人的记忆里。<b style="color:var(--gd)">一次成功索赔，即可覆盖整个体系投入。</b></p></div>
       <div class="card" data-rv style="--i:3"><h3><span class="num-badge">2</span>减少无效返工</h3><p>状态码（S2 仅供参考 vs A1 批准施工）直接切断"用了旧版图纸"这一返工源头。</p></div>
-      <div class="card" data-rv style="--i:4"><h3><span class="num-badge">3</span>支撑索赔与 EOT</h3><p>事件、影响、因果三要素全靠文件时间线。台账混乱的项目，即使占理也拿不出证据。</p></div>
+      <div class="card" data-rv style="--i:4"><h3><span class="num-badge">3</span>支撑索赔与 EOT（工期延长）</h3><p>事件、影响、因果三要素全靠文件时间线。台账混乱的项目，即使占理也拿不出证据。</p></div>
       <div class="card" data-rv style="--i:5"><h3><span class="num-badge">4</span>迎检成本极低</h3><p>内审、上级检查、ISO 9001、档案验收 —— 台账一拉就有，不再"突击整理资料"。</p></div>
       <div class="card" data-rv style="--i:6"><h3><span class="num-badge">5</span>竣工移交效率</h3><p>移交是结算前置条件：移交拖一个月，结算就拖一个月，资金成本就在那里。</p></div>
       <div class="card" data-rv style="--i:7"><h3><span class="num-badge">6</span>知识资产沉淀</h3><p>后来者三天搞清一个站的历史，而不是找三个人问两周 —— 这是企业能力，不是个人能力。</p></div>
